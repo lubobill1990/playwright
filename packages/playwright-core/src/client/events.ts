@@ -48,6 +48,7 @@ export const Events = {
     Response: 'response',
     RequestFailed: 'requestfailed',
     RequestFinished: 'requestfinished',
+    DataReceived: 'datareceived',
   },
 
   BrowserServer: {
@@ -67,6 +68,7 @@ export const Events = {
     PageError: 'pageerror',
     Request: 'request',
     Response: 'response',
+    DataReceived: 'datareceived',
     RequestFailed: 'requestfailed',
     RequestFinished: 'requestfinished',
     FrameAttached: 'frameattached',

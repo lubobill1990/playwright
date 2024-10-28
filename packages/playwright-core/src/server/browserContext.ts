@@ -56,6 +56,7 @@ export abstract class BrowserContext extends SdkObject {
     PageError: 'pageerror',
     Request: 'request',
     Response: 'response',
+    DataReceived: 'datareceived',
     RequestFailed: 'requestfailed',
     RequestFinished: 'requestfinished',
     RequestAborted: 'requestaborted',

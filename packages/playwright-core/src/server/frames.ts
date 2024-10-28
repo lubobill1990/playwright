@@ -318,6 +318,10 @@ export class FrameManager {
     this._page.emitOnContext(BrowserContext.Events.Response, response);
   }
 
+  notifyDataReceived(request: network.Request, event: any) {
+    this._page.emitOnContext(BrowserContext.Events.DataReceived, { request, event });
+  }
+
   reportRequestFinished(request: network.Request, response: network.Response | null) {
     this._inflightRequestFinished(request);
     if (request._isFavicon)

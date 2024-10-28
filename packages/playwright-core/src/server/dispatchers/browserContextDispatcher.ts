@@ -156,6 +156,16 @@ export class BrowserContextDispatcher extends Dispatcher<BrowserContext, channel
         page: PageDispatcher.fromNullable(this, request.frame()?._page.initializedOrUndefined())
       });
     });
+    this.addObjectListener(BrowserContext.Events.DataReceived, ({ request, event }: { request: Request, event: any }) => {
+      const requestDispatcher = existingDispatcher<RequestDispatcher>(request);
+      if (!requestDispatcher && !this._shouldDispatchNetworkEvent(request, 'dataReceived'))
+        return;
+      this._dispatchEvent('dataReceived', {
+        request: RequestDispatcher.from(this, request),
+        event: event,
+        page: PageDispatcher.fromNullable(this, request.frame()?._page.initializedOrUndefined()),
+      });
+    });
     this.addObjectListener(BrowserContext.Events.RequestFinished, ({ request, response }: { request: Request, response: Response | null }) => {
       const requestDispatcher = existingDispatcher<RequestDispatcher>(request);
       if (!requestDispatcher && !this._shouldDispatchNetworkEvent(request, 'requestFinished'))

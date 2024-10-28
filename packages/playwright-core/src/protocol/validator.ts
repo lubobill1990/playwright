@@ -26,6 +26,13 @@ scheme.StackFrame = tObject({
   column: tNumber,
   function: tOptional(tString),
 });
+scheme.ReceivedData = tObject({
+  dataLength: tNumber,
+  encodedDataLength: tNumber,
+  requestId: tString,
+  timestamp: tNumber,
+  data: tOptional(tString),
+});
 scheme.Metadata = tObject({
   location: tOptional(tObject({
     file: tString,
@@ -860,6 +867,11 @@ scheme.BrowserContextRequestFinishedEvent = tObject({
   responseEndTiming: tNumber,
   page: tOptional(tChannel(['Page'])),
 });
+scheme.BrowserContextDataReceivedEvent = tObject({
+  request: tChannel(['Request']),
+  event: tType('ReceivedData'),
+  page: tOptional(tChannel(['Page'])),
+});
 scheme.BrowserContextResponseEvent = tObject({
   response: tChannel(['Response']),
   page: tOptional(tChannel(['Page'])),
@@ -1012,7 +1024,7 @@ scheme.BrowserContextCreateTempFilesResult = tObject({
   writableStreams: tArray(tChannel(['WritableStream'])),
 });
 scheme.BrowserContextUpdateSubscriptionParams = tObject({
-  event: tEnum(['console', 'dialog', 'request', 'response', 'requestFinished', 'requestFailed']),
+  event: tEnum(['console', 'dialog', 'request', 'response', 'requestFinished', 'requestFailed', 'dataReceived']),
   enabled: tBoolean,
 });
 scheme.BrowserContextUpdateSubscriptionResult = tOptional(tObject({}));
@@ -1370,7 +1382,7 @@ scheme.PageStopCSSCoverageResult = tObject({
 scheme.PageBringToFrontParams = tOptional(tObject({}));
 scheme.PageBringToFrontResult = tOptional(tObject({}));
 scheme.PageUpdateSubscriptionParams = tObject({
-  event: tEnum(['console', 'dialog', 'fileChooser', 'request', 'response', 'requestFinished', 'requestFailed']),
+  event: tEnum(['console', 'dialog', 'fileChooser', 'request', 'response', 'requestFinished', 'requestFailed', 'dataReceived']),
   enabled: tBoolean,
 });
 scheme.PageUpdateSubscriptionResult = tOptional(tObject({}));

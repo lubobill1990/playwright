@@ -160,6 +160,7 @@ export class Page extends ChannelOwner<channels.PageChannel> implements api.Page
       [Events.Page.RequestFinished, 'requestFinished'],
       [Events.Page.RequestFailed, 'requestFailed'],
       [Events.Page.FileChooser, 'fileChooser'],
+      [Events.Page.DataReceived, 'dataReceived'],
     ]));
   }
 

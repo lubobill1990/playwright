@@ -86,6 +86,10 @@ export class CRServiceWorker extends Worker {
     return this._isNetworkInspectionEnabled() && !!this._browserContext._requestInterceptor;
   }
 
+  notifyDataReceived(request: network.Request, event: any) {
+    this._browserContext.emit(BrowserContext.Events.DataReceived, { request, event });
+  }
+
   reportRequestFinished(request: network.Request, response: network.Response | null) {
     this._browserContext.emit(BrowserContext.Events.RequestFinished, { request, response });
   }

@@ -144,6 +144,14 @@ export type StackFrame = {
   function?: string,
 };
 
+export type ReceivedData = {
+  dataLength: number,
+  encodedDataLength: number,
+  requestId: string,
+  timestamp: number,
+  data?: string,
+};
+
 export type Metadata = {
   location?: {
     file: string,
@@ -1503,6 +1511,7 @@ export interface BrowserContextEventTarget {
   on(event: 'request', callback: (params: BrowserContextRequestEvent) => void): this;
   on(event: 'requestFailed', callback: (params: BrowserContextRequestFailedEvent) => void): this;
   on(event: 'requestFinished', callback: (params: BrowserContextRequestFinishedEvent) => void): this;
+  on(event: 'dataReceived', callback: (params: BrowserContextDataReceivedEvent) => void): this;
   on(event: 'response', callback: (params: BrowserContextResponseEvent) => void): this;
 }
 export interface BrowserContextChannel extends BrowserContextEventTarget, EventTargetChannel {
@@ -1594,6 +1603,11 @@ export type BrowserContextRequestFinishedEvent = {
   request: RequestChannel,
   response?: ResponseChannel,
   responseEndTiming: number,
+  page?: PageChannel,
+};
+export type BrowserContextDataReceivedEvent = {
+  request: RequestChannel,
+  event: ReceivedData,
   page?: PageChannel,
 };
 export type BrowserContextResponseEvent = {
@@ -1840,7 +1854,7 @@ export type BrowserContextCreateTempFilesResult = {
   writableStreams: WritableStreamChannel[],
 };
 export type BrowserContextUpdateSubscriptionParams = {
-  event: 'console' | 'dialog' | 'request' | 'response' | 'requestFinished' | 'requestFailed',
+  event: 'console' | 'dialog' | 'request' | 'response' | 'requestFinished' | 'requestFailed' | 'dataReceived',
   enabled: boolean,
 };
 export type BrowserContextUpdateSubscriptionOptions = {
@@ -1920,6 +1934,7 @@ export interface BrowserContextEvents {
   'request': BrowserContextRequestEvent;
   'requestFailed': BrowserContextRequestFailedEvent;
   'requestFinished': BrowserContextRequestFinishedEvent;
+  'dataReceived': BrowserContextDataReceivedEvent;
   'response': BrowserContextResponseEvent;
 }
 
@@ -2470,7 +2485,7 @@ export type PageBringToFrontParams = {};
 export type PageBringToFrontOptions = {};
 export type PageBringToFrontResult = void;
 export type PageUpdateSubscriptionParams = {
-  event: 'console' | 'dialog' | 'fileChooser' | 'request' | 'response' | 'requestFinished' | 'requestFailed',
+  event: 'console' | 'dialog' | 'fileChooser' | 'request' | 'response' | 'requestFinished' | 'requestFailed' | 'dataReceived',
   enabled: boolean,
 };
 export type PageUpdateSubscriptionOptions = {

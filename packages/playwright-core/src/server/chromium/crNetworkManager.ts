@@ -67,6 +67,7 @@ export class CRNetworkManager {
       eventsHelper.addEventListener(session, 'Network.requestServedFromCache', this._onRequestServedFromCache.bind(this)),
       eventsHelper.addEventListener(session, 'Network.responseReceived', this._onResponseReceived.bind(this, sessionInfo)),
       eventsHelper.addEventListener(session, 'Network.responseReceivedExtraInfo', this._onResponseReceivedExtraInfo.bind(this)),
+      eventsHelper.addEventListener(session, 'Network.dataReceived', this._onDataReceived.bind(this, sessionInfo)),
       eventsHelper.addEventListener(session, 'Network.loadingFinished', this._onLoadingFinished.bind(this, sessionInfo)),
       eventsHelper.addEventListener(session, 'Network.loadingFailed', this._onLoadingFailed.bind(this, sessionInfo)),
     ];
@@ -460,6 +461,13 @@ export class CRNetworkManager {
     this._responseExtraInfoTracker.responseReceivedExtraInfo(event);
   }
 
+  _onDataReceived(sessionInfo: SessionInfo, event: Protocol.Network.dataReceivedPayload) {
+    const request = this._requestIdToRequest.get(event.requestId);
+    if (!request)
+      return;
+    (this._page?._frameManager || this._serviceWorker)!.notifyDataReceived(request.request, event);
+  }
+
   _onResponseReceived(sessionInfo: SessionInfo, event: Protocol.Network.responseReceivedPayload) {
     let request = this._requestIdToRequest.get(event.requestId);
     // For frame-level Requests that are handled by a Service Worker's fetch handler, we'll never get a requestPaused event, so we need to
@@ -476,6 +484,7 @@ export class CRNetworkManager {
     // FileUpload sends a response without a matching request.
     if (!request)
       return;
+    sessionInfo.session.send('Network.streamResourceContent', { requestId: event.requestId }).catch(() => {});
     const response = this._createResponse(request, event.response, event.hasExtraInfo);
     (this._page?._frameManager || this._serviceWorker)!.requestReceivedResponse(response);
   }

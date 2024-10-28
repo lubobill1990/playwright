@@ -22,6 +22,15 @@ StackFrame:
 
 # This object can be send with any rpc call in the "metadata" field.
 
+ReceivedData:
+  type: object
+  properties:
+    dataLength: number
+    encodedDataLength: number
+    requestId: string
+    timestamp: number
+    data: string?
+
 Metadata:
   type: object
   properties:
@@ -1258,6 +1267,7 @@ BrowserContext:
           - response
           - requestFinished
           - requestFailed
+          - dataReceived
         enabled: boolean
 
     clockFastForward:
@@ -1355,6 +1365,12 @@ BrowserContext:
         request: Request
         response: Response?
         responseEndTiming: number
+        page: Page?
+
+    dataReceived:
+      parameters:
+        request: Request
+        event: ReceivedData
         page: Page?
 
     response:
@@ -1765,6 +1781,7 @@ Page:
           - response
           - requestFinished
           - requestFailed
+          - dataReceived
         enabled: boolean
 
   events:
