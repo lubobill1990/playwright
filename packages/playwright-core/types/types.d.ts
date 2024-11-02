@@ -1061,6 +1061,31 @@ export interface Page {
   on(event: 'crash', listener: (page: Page) => any): this;
 
   /**
+   * Emitted when data is received
+   */
+  on(event: 'datareceived', listener: (data: {
+    /**
+     * request
+     */
+    request: Request;
+
+    /**
+     * event
+     */
+    event: {
+      /**
+       * data
+       */
+      data: string;
+
+      /**
+       * requestId
+       */
+      requestId: string;
+    };
+  }) => any): this;
+
+  /**
    * Emitted when a JavaScript dialog appears, such as `alert`, `prompt`, `confirm` or `beforeunload`. Listener **must**
    * either [dialog.accept([promptText])](https://playwright.dev/docs/api/class-dialog#dialog-accept) or
    * [dialog.dismiss()](https://playwright.dev/docs/api/class-dialog#dialog-dismiss) the dialog - otherwise the page
@@ -1239,6 +1264,31 @@ export interface Page {
   /**
    * Adds an event listener that will be automatically removed after it is triggered once. See `addListener` for more information about this event.
    */
+  once(event: 'datareceived', listener: (data: {
+    /**
+     * request
+     */
+    request: Request;
+
+    /**
+     * event
+     */
+    event: {
+      /**
+       * data
+       */
+      data: string;
+
+      /**
+       * requestId
+       */
+      requestId: string;
+    };
+  }) => any): this;
+
+  /**
+   * Adds an event listener that will be automatically removed after it is triggered once. See `addListener` for more information about this event.
+   */
   once(event: 'dialog', listener: (dialog: Dialog) => any): this;
 
   /**
@@ -1361,6 +1411,31 @@ export interface Page {
    *
    */
   addListener(event: 'crash', listener: (page: Page) => any): this;
+
+  /**
+   * Emitted when data is received
+   */
+  addListener(event: 'datareceived', listener: (data: {
+    /**
+     * request
+     */
+    request: Request;
+
+    /**
+     * event
+     */
+    event: {
+      /**
+       * data
+       */
+      data: string;
+
+      /**
+       * requestId
+       */
+      requestId: string;
+    };
+  }) => any): this;
 
   /**
    * Emitted when a JavaScript dialog appears, such as `alert`, `prompt`, `confirm` or `beforeunload`. Listener **must**
@@ -1541,6 +1616,31 @@ export interface Page {
   /**
    * Removes an event listener added by `on` or `addListener`.
    */
+  removeListener(event: 'datareceived', listener: (data: {
+    /**
+     * request
+     */
+    request: Request;
+
+    /**
+     * event
+     */
+    event: {
+      /**
+       * data
+       */
+      data: string;
+
+      /**
+       * requestId
+       */
+      requestId: string;
+    };
+  }) => any): this;
+
+  /**
+   * Removes an event listener added by `on` or `addListener`.
+   */
   removeListener(event: 'dialog', listener: (dialog: Dialog) => any): this;
 
   /**
@@ -1632,6 +1732,31 @@ export interface Page {
    * Removes an event listener added by `on` or `addListener`.
    */
   off(event: 'crash', listener: (page: Page) => any): this;
+
+  /**
+   * Removes an event listener added by `on` or `addListener`.
+   */
+  off(event: 'datareceived', listener: (data: {
+    /**
+     * request
+     */
+    request: Request;
+
+    /**
+     * event
+     */
+    event: {
+      /**
+       * data
+       */
+      data: string;
+
+      /**
+       * requestId
+       */
+      requestId: string;
+    };
+  }) => any): this;
 
   /**
    * Removes an event listener added by `on` or `addListener`.
@@ -1758,6 +1883,31 @@ export interface Page {
    *
    */
   prependListener(event: 'crash', listener: (page: Page) => any): this;
+
+  /**
+   * Emitted when data is received
+   */
+  prependListener(event: 'datareceived', listener: (data: {
+    /**
+     * request
+     */
+    request: Request;
+
+    /**
+     * event
+     */
+    event: {
+      /**
+       * data
+       */
+      data: string;
+
+      /**
+       * requestId
+       */
+      requestId: string;
+    };
+  }) => any): this;
 
   /**
    * Emitted when a JavaScript dialog appears, such as `alert`, `prompt`, `confirm` or `beforeunload`. Listener **must**
@@ -4737,6 +4887,71 @@ export interface Page {
    *
    */
   waitForEvent(event: 'crash', optionsOrPredicate?: { predicate?: (page: Page) => boolean | Promise<boolean>, timeout?: number } | ((page: Page) => boolean | Promise<boolean>)): Promise<Page>;
+
+  /**
+   * Emitted when data is received
+   */
+  waitForEvent(event: 'datareceived', optionsOrPredicate?: { predicate?: (data: {
+    /**
+     * request
+     */
+    request: Request;
+
+    /**
+     * event
+     */
+    event: {
+      /**
+       * data
+       */
+      data: string;
+
+      /**
+       * requestId
+       */
+      requestId: string;
+    };
+  }) => boolean | Promise<boolean>, timeout?: number } | ((data: {
+    /**
+     * request
+     */
+    request: Request;
+
+    /**
+     * event
+     */
+    event: {
+      /**
+       * data
+       */
+      data: string;
+
+      /**
+       * requestId
+       */
+      requestId: string;
+    };
+  }) => boolean | Promise<boolean>)): Promise<{
+    /**
+     * request
+     */
+    request: Request;
+
+    /**
+     * event
+     */
+    event: {
+      /**
+       * data
+       */
+      data: string;
+
+      /**
+       * requestId
+       */
+      requestId: string;
+    };
+  }>;
 
   /**
    * Emitted when a JavaScript dialog appears, such as `alert`, `prompt`, `confirm` or `beforeunload`. Listener **must**
@@ -8219,6 +8434,31 @@ export interface BrowserContext {
   on(event: 'console', listener: (consoleMessage: ConsoleMessage) => any): this;
 
   /**
+   * Emitted when data is received
+   */
+  on(event: 'datareceived', listener: (data: {
+    /**
+     * request
+     */
+    request: Request;
+
+    /**
+     * event
+     */
+    event: {
+      /**
+       * data
+       */
+      data: string;
+
+      /**
+       * requestId
+       */
+      requestId: string;
+    };
+  }) => any): this;
+
+  /**
    * Emitted when a JavaScript dialog appears, such as `alert`, `prompt`, `confirm` or `beforeunload`. Listener **must**
    * either [dialog.accept([promptText])](https://playwright.dev/docs/api/class-dialog#dialog-accept) or
    * [dialog.dismiss()](https://playwright.dev/docs/api/class-dialog#dialog-dismiss) the dialog - otherwise the page
@@ -8339,6 +8579,31 @@ export interface BrowserContext {
   /**
    * Adds an event listener that will be automatically removed after it is triggered once. See `addListener` for more information about this event.
    */
+  once(event: 'datareceived', listener: (data: {
+    /**
+     * request
+     */
+    request: Request;
+
+    /**
+     * event
+     */
+    event: {
+      /**
+       * data
+       */
+      data: string;
+
+      /**
+       * requestId
+       */
+      requestId: string;
+    };
+  }) => any): this;
+
+  /**
+   * Adds an event listener that will be automatically removed after it is triggered once. See `addListener` for more information about this event.
+   */
   once(event: 'dialog', listener: (dialog: Dialog) => any): this;
 
   /**
@@ -8416,6 +8681,31 @@ export interface BrowserContext {
    *
    */
   addListener(event: 'console', listener: (consoleMessage: ConsoleMessage) => any): this;
+
+  /**
+   * Emitted when data is received
+   */
+  addListener(event: 'datareceived', listener: (data: {
+    /**
+     * request
+     */
+    request: Request;
+
+    /**
+     * event
+     */
+    event: {
+      /**
+       * data
+       */
+      data: string;
+
+      /**
+       * requestId
+       */
+      requestId: string;
+    };
+  }) => any): this;
 
   /**
    * Emitted when a JavaScript dialog appears, such as `alert`, `prompt`, `confirm` or `beforeunload`. Listener **must**
@@ -8538,6 +8828,31 @@ export interface BrowserContext {
   /**
    * Removes an event listener added by `on` or `addListener`.
    */
+  removeListener(event: 'datareceived', listener: (data: {
+    /**
+     * request
+     */
+    request: Request;
+
+    /**
+     * event
+     */
+    event: {
+      /**
+       * data
+       */
+      data: string;
+
+      /**
+       * requestId
+       */
+      requestId: string;
+    };
+  }) => any): this;
+
+  /**
+   * Removes an event listener added by `on` or `addListener`.
+   */
   removeListener(event: 'dialog', listener: (dialog: Dialog) => any): this;
 
   /**
@@ -8589,6 +8904,31 @@ export interface BrowserContext {
    * Removes an event listener added by `on` or `addListener`.
    */
   off(event: 'console', listener: (consoleMessage: ConsoleMessage) => any): this;
+
+  /**
+   * Removes an event listener added by `on` or `addListener`.
+   */
+  off(event: 'datareceived', listener: (data: {
+    /**
+     * request
+     */
+    request: Request;
+
+    /**
+     * event
+     */
+    event: {
+      /**
+       * data
+       */
+      data: string;
+
+      /**
+       * requestId
+       */
+      requestId: string;
+    };
+  }) => any): this;
 
   /**
    * Removes an event listener added by `on` or `addListener`.
@@ -8670,6 +9010,31 @@ export interface BrowserContext {
    *
    */
   prependListener(event: 'console', listener: (consoleMessage: ConsoleMessage) => any): this;
+
+  /**
+   * Emitted when data is received
+   */
+  prependListener(event: 'datareceived', listener: (data: {
+    /**
+     * request
+     */
+    request: Request;
+
+    /**
+     * event
+     */
+    event: {
+      /**
+       * data
+       */
+      data: string;
+
+      /**
+       * requestId
+       */
+      requestId: string;
+    };
+  }) => any): this;
 
   /**
    * Emitted when a JavaScript dialog appears, such as `alert`, `prompt`, `confirm` or `beforeunload`. Listener **must**
@@ -9374,6 +9739,71 @@ export interface BrowserContext {
    *
    */
   waitForEvent(event: 'console', optionsOrPredicate?: { predicate?: (consoleMessage: ConsoleMessage) => boolean | Promise<boolean>, timeout?: number } | ((consoleMessage: ConsoleMessage) => boolean | Promise<boolean>)): Promise<ConsoleMessage>;
+
+  /**
+   * Emitted when data is received
+   */
+  waitForEvent(event: 'datareceived', optionsOrPredicate?: { predicate?: (data: {
+    /**
+     * request
+     */
+    request: Request;
+
+    /**
+     * event
+     */
+    event: {
+      /**
+       * data
+       */
+      data: string;
+
+      /**
+       * requestId
+       */
+      requestId: string;
+    };
+  }) => boolean | Promise<boolean>, timeout?: number } | ((data: {
+    /**
+     * request
+     */
+    request: Request;
+
+    /**
+     * event
+     */
+    event: {
+      /**
+       * data
+       */
+      data: string;
+
+      /**
+       * requestId
+       */
+      requestId: string;
+    };
+  }) => boolean | Promise<boolean>)): Promise<{
+    /**
+     * request
+     */
+    request: Request;
+
+    /**
+     * event
+     */
+    event: {
+      /**
+       * data
+       */
+      data: string;
+
+      /**
+       * requestId
+       */
+      requestId: string;
+    };
+  }>;
 
   /**
    * Emitted when a JavaScript dialog appears, such as `alert`, `prompt`, `confirm` or `beforeunload`. Listener **must**

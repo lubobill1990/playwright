@@ -312,6 +312,16 @@ Emitted when [response] status and headers are received for a request. For a suc
 is `request`, `response` and `requestfinished`. To listen for response events
 from a particular page, use [`event: Page.response`].
 
+## event: BrowserContext.dataReceived
+* since: v1.9
+- argument: <[Object]>
+  - `request` <[Request]> request
+  - `event` <[Object]> event
+    - `data` <[string]> data
+    - `requestId` <[string]> requestId
+
+Emitted when data is received
+
 ## event: BrowserContext.serviceWorker
 * since: v1.11
 * langs: js, python

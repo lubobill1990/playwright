@@ -484,7 +484,20 @@ export class CRNetworkManager {
     // FileUpload sends a response without a matching request.
     if (!request)
       return;
-    sessionInfo.session.send('Network.streamResourceContent', { requestId: event.requestId }).catch(() => {});
+    const rawResponse = event.response;
+    if (rawResponse.mimeType === 'text/event-stream') {
+      sessionInfo.session.send('Network.streamResourceContent', {
+        requestId: event.requestId
+      }).then(({ bufferedData }) => {
+        if (bufferedData.length > 0) {
+          (this._page?._frameManager || this._serviceWorker)!.notifyDataReceived(request.request, {
+            data: bufferedData,
+            requestId: request._requestId,
+          });
+        }
+      }).catch(() => {});
+    }
+
     const response = this._createResponse(request, event.response, event.hasExtraInfo);
     (this._page?._frameManager || this._serviceWorker)!.requestReceivedResponse(response);
   }

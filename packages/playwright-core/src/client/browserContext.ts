@@ -173,9 +173,9 @@ export class BrowserContext extends ChannelOwner<channels.BrowserContextChannel>
   }
 
   private _onDataReceived(request: network.Request, page: Page | null, event: any) {
-    this.emit(Events.BrowserContext.DataReceived, request, event);
+    this.emit(Events.BrowserContext.DataReceived, { request, event });
     if (page)
-      page.emit(Events.Page.DataReceived, request, event);
+      page.emit(Events.Page.DataReceived, { request, event });
   }
 
   private _onResponse(response: network.Response, page: Page | null) {

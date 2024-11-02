@@ -544,6 +544,16 @@ sequence of events is `request`, `response` and `requestfinished`.
 Emitted when [response] status and headers are received for a request. For a successful response, the sequence of events
 is `request`, `response` and `requestfinished`.
 
+## event: Page.dataReceived
+* since: v1.9
+- argument: <[Object]>
+  - `request` <[Request]> request
+  - `event` <[Object]> event
+    - `data` <[string]> data
+    - `requestId` <[string]> requestId
+
+Emitted when data is received
+
 ## event: Page.webSocket
 * since: v1.9
 - argument: <[WebSocket]>
